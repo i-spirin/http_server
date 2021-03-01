@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/i-spirin/http_server/config"
@@ -32,7 +33,10 @@ func main() {
 	flag.Parse()
 
 	conf := config.Config{}
-	conf.Parse(*ConfigFilePath)
+	err := conf.Parse(*ConfigFilePath)
+	if err != nil {
+		log.Fatalf("Got error during checking config: %v", err)
+	}
 
 	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)

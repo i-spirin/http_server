@@ -1,7 +1,6 @@
 package config
 
 import (
-	"log"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -14,16 +13,17 @@ type Config struct {
 }
 
 // Parse is function to get configuration from YAML-file
-func (c *Config) Parse(filename string) {
+func (c *Config) Parse(filename string) error {
 	file, err := os.Open(filename)
 	if err != nil {
-		log.Fatalf("Could not open file: %s", filename)
+		return err
 	}
 
 	defer file.Close()
 
 	err = yaml.NewDecoder(file).Decode(c)
 	if err != nil {
-		log.Fatalf("Could not parse YAML-file: %v", err)
+		return err
 	}
+	return nil
 }
