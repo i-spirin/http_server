@@ -9,11 +9,6 @@ import (
 	"github.com/i-spirin/http_server/config"
 )
 
-func hello(w http.ResponseWriter, req *http.Request) {
-
-	fmt.Fprintf(w, "hello\n")
-}
-
 func headers(w http.ResponseWriter, req *http.Request) {
 
 	for name, headers := range req.Header {
@@ -38,7 +33,6 @@ func main() {
 		log.Fatalf("Got error during checking config: %v", err)
 	}
 
-	http.HandleFunc("/hello", hello)
 	http.HandleFunc("/headers", headers)
 	http.HandleFunc("/ip", ip)
 
